@@ -1,10 +1,9 @@
 //Importo somente a funcão router
 import { Router } from 'express';
 
+import authMiddleware from './app/middlewares/auth';
 import DashboardsController from './app/controllers/DashboardsController';
 import SessionsController from './app/controllers/SessionsController';
-
-import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
@@ -19,6 +18,7 @@ routes.use(authMiddleware);
 
 //################## AUTH PROOF #####################
 //Dashboard
+routes.get('/proof/dashboard', DashboardsController.index);
 
 //################## AUTH PROOF #####################
 
