@@ -41,13 +41,9 @@ const UsersSchema = new mongoose.Schema(
             type: Object,
             required: true,
             password: {
-                type: Object,
+                type: String,
                 required: true,
-                bcrypt: {
-                    type: String,
-                    required: true,
-                    select: false
-                }
+                select: false
             }
         },
         history: {
