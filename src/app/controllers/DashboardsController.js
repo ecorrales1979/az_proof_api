@@ -15,7 +15,7 @@ class DashboardsController {
 
             return res.status(200).json(result);
         } catch (error) {
-            console.error('Error in OrderController.index:', error);
+            console.error('Error in DashboardsController.index:', error);
             return res.status(500).json({ message: 'Internal Server Error' });
         }
     }
