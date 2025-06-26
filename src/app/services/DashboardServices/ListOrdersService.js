@@ -3,7 +3,7 @@ import Order from '../../models/Order';
 
 const VALID_SALE_STATUSES = [OrderStatusEnum.PAID];
 
-class ListOrderServices {
+class ListOrdersService {
     /**
      * Busca pedidos com estatísticas resumidas e paginação
      *
@@ -199,4 +199,4 @@ class ListOrderServices {
     }
 }
 
-export default new ListOrderServices();
+export default new ListOrdersService();
