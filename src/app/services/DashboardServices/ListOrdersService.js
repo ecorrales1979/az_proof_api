@@ -144,7 +144,7 @@ class ListOrdersService {
                     }
                 }
             }
-        ]);
+        ]).exec();
 
         return stats;
     }
@@ -172,20 +172,21 @@ class ListOrdersService {
                 queryFilters.createdAt.$gte = new Date(filters.start_date);
             }
 
-            if (query.end_date) {
-                const end = new Date(query.end_date);
+            if (filters.end_date) {
+                const end = new Date(filters.end_date);
                 end.setUTCHours(23, 59, 59, 999);
                 filters.createdAt.$lte = end;
             }
         }
 
-        const filteredTotal = await Order.countDocuments(filters);
+        const filteredTotal = await Order.countDocuments(filters).exec();
 
         const orders = await Order.find(filters)
             .skip(skip)
             .limit(limit)
             .sort({ createdAt: -1 })
-            .lean();
+            .lean()
+            .exec();
 
         const totalPages = Math.ceil(filteredTotal / limit);
         const hasMore = page < totalPages;
