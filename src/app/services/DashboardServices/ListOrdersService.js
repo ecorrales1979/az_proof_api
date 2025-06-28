@@ -164,6 +164,9 @@ class ListOrdersService {
         const { page = 1, limit = 10 } = pagination;
         const skip = (page - 1) * limit;
 
+        console.log('Start:', new Date(filters.start_date));
+        console.log('End:', new Date(filters.end_date));
+
         const queryFilters = {};
         if (filters.start_date || filters.end_date) {
             queryFilters.createdAt = {};
@@ -175,13 +178,13 @@ class ListOrdersService {
             if (filters.end_date) {
                 const end = new Date(filters.end_date);
                 end.setUTCHours(23, 59, 59, 999);
-                filters.createdAt.$lte = end;
+                queryFilters.createdAt.$lte = end;
             }
         }
 
-        const filteredTotal = await Order.countDocuments(filters).exec();
+        const filteredTotal = await Order.countDocuments(queryFilters).exec();
 
-        const orders = await Order.find(filters)
+        const orders = await Order.find(queryFilters)
             .skip(skip)
             .limit(limit)
             .sort({ createdAt: -1 })
